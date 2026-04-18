@@ -1,0 +1,59 @@
+{
+  "name": "spoon-bot",
+  "version": "1.0.0",
+  "description": "스푼라디오 커맨드 봇",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win nsis --x64",
+    "release": "electron-builder --win nsis --x64 --publish always"
+  },
+  "build": {
+    "appId": "com.spoonbot.app",
+    "productName": "스푼봇",
+    "asar": true,
+    "files": [
+      "**/*",
+      "!dist{,/**}",
+      "!.github{,/**}",
+      "!release{,/**}"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": false,
+      "installerLanguages": [
+        "ko"
+      ],
+      "language": "1042"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "__GITHUB_OWNER__",
+        "repo": "__GITHUB_REPO__",
+        "releaseType": "release"
+      }
+    ]
+  },
+  "devDependencies": {
+    "electron": "^28.3.3",
+    "electron-builder": "^24.13.3",
+    "electron-updater": "^6.3.9"
+  },
+  "dependencies": {
+    "ws": "^8.16.0"
+  }
+}
